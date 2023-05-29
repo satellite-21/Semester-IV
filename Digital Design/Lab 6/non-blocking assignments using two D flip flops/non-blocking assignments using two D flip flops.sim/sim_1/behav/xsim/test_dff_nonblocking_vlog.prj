@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../non-blocking assignments using two D flip flops.srcs/sources_1/new/dff_nonblocking.v" \
+"../../../../non-blocking assignments using two D flip flops.srcs/sources_1/new/test_dff_nonblocking.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

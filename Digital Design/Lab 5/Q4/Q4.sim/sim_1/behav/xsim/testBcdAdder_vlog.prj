@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../Q4.srcs/sources_1/new/bcdSubtractor.v" \
+"../../../../Q4.srcs/sources_1/new/testBcdAdder.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
