@@ -1,0 +1,273 @@
+/{Heading} Music Genre  Classification
+/{Subheading} Vinayak Verma, Kartik Choudhary
+/{Subheading} B20EE079, B20CS025
+
+Abstract - This paper reports our experience with building a Music Genre Classifier. We have dataset containing genres, images original and two CSV files containing features of the audio files. Genres original - A collection of 10 genres with 100 audio files each, all having a length of 30 seconds. Images Original- A visual representation for each audio file. We use various classification algorithms and compare their results in
+this report.
+
+I. Introduction
+Music Experts have been trying for a long time to understand sound and what differenciates one song from another. How to visualize sound? What makes a tone different from another? The goal of this project is to classify an audio file's genre from 10 different geres [{this will be in Italics}'rock', 'classical', 'metal', 'disco', 'blues', 'reggae', 'country', 'hiphop', 'jazz', 'pop'].
+
+Datasets
+CSV: features3seconds.csv file is used as the training dataset.
+The train dataset contains 9990 rows where each row contains 59 features of the audio file and one column containing the label of the audio file.
+	* Labels: Class Label 0-9 for 'rock', 'classical', 'metal', 'disco', 			    'blues', 'reggae', 'country', 'hiphop', 'jazz', 				          'pop'respectively.
+
+	* For the classification The dataset has been split into train and test 	  with test size of 0.3.
+
+
+II. Methodology
+
+Overview
+There are various classification algorithms present out of which we shall implement the following
+* Gaussian Naive Bayes
+* Stochastic Gradient Classifier 
+* KNN
+* Decision Trees 
+* Random Forest Classifier 
+* Multinomial Logistic Regression
+* SVM Classifier 
+* XGBoost Classifier
+* MLP
+* ANN
+We also make use of PCA for dimensionality reduction and feature selection.
+
+Exploring the Dataset and Pre-Processing:
+On counting the number of NULL values in the train dataset , it was found that there are no NULL values present. We have used librosa library to visualise all the genres of audio files. Various other crucial analysing parameters such as Spectrogram, MEL Spectrogram, Chroma feature, Zero Crossing rate, spectral rollof and spectral centroid. The data is normalized before feeding into the classifiers.
+
+Implementation of Classification algorithms
+* Gaussian Naive Bayes: Gaussian Naive Bayes is an algorithm having a Probabilistic Approach. It involves prior and posterior probability calculation of the classes in the dataset and the test data given a class respectively.
+	Default GaussianNB() is used for the classification.
+
+* Stochastic Gradient Classifier: The class SGDClassifier implements a plain stochastic gradient descent learning routine which supports different loss functions and penalties for classification. 
+	SGDClassifier(max_iter=5000, random_state=0) is used for 	classification.
+
+* KNN: :KNN are supervised algorithms which classify on the basis of distance from similar points.Here k is the number of nearest neighbors to be considered in the majority voting process.
+	KNeighborsClassifier(n_neighbors=10) is used.
+
+* Decision Trees:
+	Default DTC is used.
+
+* Random Forest Classifier:Random Forest Classifiers use boosting ensemble methods to train upon various decision trees and produce aggregated results.It is one of the most used machine learning algorithms.
+	 RandomForestClassifier(n_estimators=1000, max_depth=10, random_state=0) is used.
+
+* Multinomial Logistic Regression: Since the data of multilabel type we have used multinomial logistic regression. Multinomial logistic regression is an extension of logistic regression that adds native support for multi-class classification problems.
+	LogisticRegression(random_state=0, solver='lbfgs', multi_class='multinomial')
+
+* SVM Classifier: :In SVM , data points are plotted into n-dimensional graphs which are then classified by drawing hyperplanes.
+	SVC(C=1.0,kernel='linear',random_state=0)
+	SVC(C=1.0,kernel='poly',degree=2,random_state=0)
+	SVC(C=1.0,kernel='poly',degree=3,random_state=0)
+	SVC(C=1.0,kernel='poly',degree=4,random_state=0)
+	SVC(C=1.0,kernel='poly',degree=5,random_state=0)
+	SVC(C=1.0,kernel='poly',degree=6,random_state=0)
+	SVC(C=1.0,kernel='poly',degree=7,random_state=0)
+	SVC(C=i,kernel='rbf',random_state=0) {i 1 to 3}
+	SVC(C=i,kernel='rbf',random_state=0) {i in range(10,101,10):}
+	SVC(C=i,kernel='rbf',random_state=0) {range(100,1001,100)}
+	SVC(C=1.0,kernel='sigmoid',random_state=0)
+	SVC(C=c,kernel='poly',degree=6,random_state=0) {for i in range(1,11):
+    c = i/10.0}
+	SVC(C=c,kernel='poly',degree=6,random_state=0) {for i in range(1,4):
+    c = i}
+	SVC(C=160,kernel='sigmoid',random_state=0,gamma=0.03)
+	SVC(C=200,kernel='rbf',random_state=0)
+	SVC(C=200,kernel='rbf',random_state=0,gamma=i/100) {i in range(1,10):}
+	SVC(C=200,kernel='rbf',random_state=0,gamma=i/10) {range(1,11)}
+	SVC(C=200,kernel='rbf',random_state=0,gamma=i) {range(1,11)}
+	SVC(C=200,kernel='rbf',random_state=0,gamma=3) 
+
+* MLP: :MLP is a feedforward Neural Network which uses backpropagation to update weights and improve
+the results. 
+	MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5000, 				10), random_state=1)
+
+
+* XGBoost Classifier: a supervised machine learning task in which one should predict if an instance is in some category by studying the instance’s features. 
+	XGBClassifier(n_estimators=1000, learning_rate=0.05)
+
+* ANN: 
+	Keras Sequential Models 
+
+
+Dimensionality reduction techniques used: PCA
+
+III. Classification on the <Environment Audio Dataset> Dataset
+----------------------------------------------------------
+
+IV Evaluation of Models
+	
+	Accuracy Score		Model
+	0.52				Gaussian Naive Bayes
+	0.64				Stochastic Gradient Descent
+	0.87				KNN
+	0.66				Decision Tree Classifier
+	0.81				Random Forest Classifier 
+	0.69				Multinomial Logistic Regression
+	0.67				MLP
+	0.75				SVM Classifier
+	0.91				XBG Classifier
+
+	Rigourous analysis is done on SVM Classifier since it is expected to
+	perform better on the multilabel high dimensional data.
+	
+	0.72 C=1.0,kernel='linear'
+	0.76 C=1.0,kernel='poly',degree=2	
+	0.80 C=1.0,kernel='poly',degree=3
+	0.85 C=1.0,kernel='poly',degree=4
+	0.88 C=1.0,kernel='poly',degree=5
+	0.89 C=1.0,kernel='poly',degree=6
+	0.89 C=1.0,kernel='poly',degree=7
+	rbf kernel c=1 is: 0.75
+	rbf kernel c=2 is: 0.78
+	rbf kernel c=10 is: 0.84
+	rbf kernel c=20 is: 0.86
+	rbf kernel c=30 is: 0.88
+	rbf kernel c=40 is: 0.88
+	rbf kernel c=50 is: 0.89
+	rbf kernel c=60 is: 0.89
+	rbf kernel c=70 is: 0.9
+	rbf kernel c=80 is: 0.9
+	rbf kernel c=90 is: 0.9
+	rbf kernel c=100 is: 0.9
+	rbf kernel c=100 is: 0.9
+	rbf kernel c=200 is: 0.9
+	rbf kernel c=300 is: 0.9
+	rbf kernel c=400 is: 0.91
+	rbf kernel c=500 is: 0.9
+	rbf kernel c=600 is: 0.9
+	rbf kernel c=700 is: 0.9
+	rbf kernel c=800 is: 0.9	
+	rbf kernel c=900 is: 0.9
+	rbf kernel c=1000 is: 0.9
+	0.15 C=1.0,kernel='sigmoid'
+	poly d=6 kernel c = 0.1 is: 0.86
+	poly d=6 kernel 0.2 is: 0.88
+	poly d=6 kernel 0.3 is: 0.88
+	poly d=6 kernel 0.4 is: 0.89
+	poly d=6 kernel 0.5 is: 0.89
+	poly d=6 kernel 0.6 is: 0.89
+	poly d=6 kernel 0.7 is: 0.89
+	poly d=6 kernel 0.8 is: 0.89
+	poly d=6 kernel 0.9 is: 0.89
+	poly d=6 kernel 1.0 is: 0.89
+	poly deg=6 kernel 1 is: 0.89
+	poly deg=6 kernel 2 is: 0.89
+	poly deg=6 kernel 3 is: 0.89
+	0.74 C=160,kernel='sigmoid'
+	0.91 C=200,kernel='rbf'
+	rbf kernel c=200 gamma=0.01 is: 0.75
+	rbf kernel c=200 gamma=0.02 is: 0.77
+	rbf kernel c=200 gamma=0.03 is: 0.79
+	rbf kernel c=200 gamma=0.04 is: 0.8
+	rbf kernel c=200 gamma=0.05 is: 0.81
+	rbf kernel c=200 gamma=0.06 is: 0.83
+	rbf kernel c=200 gamma=0.07 is: 0.84
+	rbf kernel c=200 gamma=0.08 is: 0.84
+	rbf kernel c=200 gamma=0.09 is: 0.85
+	rbf kernel c=200 gamma=0.1 is: 0.85
+	rbf kernel c=200 gamma=0.2 is: 0.89
+	rbf kernel c=200 gamma=0.3 is: 0.9
+	rbf kernel c=200 gamma=0.4 is: 0.91
+	rbf kernel c=200 gamma=0.5 is: 0.91
+	rbf kernel c=200 gamma=0.6 is: 0.91
+	rbf kernel c=200 gamma=0.7 is: 0.92
+	rbf kernel c=200 gamma=0.8 is: 0.92
+	rbf kernel c=200 gamma=0.9 is: 0.92
+	rbf kernel c=200 gamma=1.0 is: 0.92
+	rbf kernel c=200 gamma=1 is: 0.92
+	rbf kernel c=200 gamma=2 is: 0.93
+	rbf kernel c=200 gamma=3 is: 0.94
+	rbf kernel c=200 gamma=4 is: 0.94
+	rbf kernel c=200 gamma=5 is: 0.93
+	rbf kernel c=200 gamma=6 is: 0.93
+	rbf kernel c=200 gamma=7 is: 0.93
+	rbf kernel c=200 gamma=8 is: 0.92
+	rbf kernel c=200 gamma=9 is: 0.92
+	rbf kernel c=200 gamma=10 is: 0.91
+	rbf kernel c=200 gamma=3 is: 0.94
+	
+
+ANNs:
+<So called CNN model>
+Number of Epochs: 600 
+Loss at the end	0.1814
+accuracy at the end 0.9392
+loss on validation set at the end:  0.3742
+Accuracy on validation set at the end: 0.8926
+
+
+Test loss :  0.37424203753471375
+Best test accuracy :  89.25592303276062
+
+<So called Deep Learning Mode	l>
+<model_1>
+Number of Epochs: 70 
+Loss at the end	0.3840
+accuracy at the end 0.8686
+loss on validation set at the end: 0.5826
+accuracy on validation set at the end: 0.8089
+
+Max. Validation Accuracy 0.8094034194946289
+
+<model_2>
+Number of Epochs: 100 
+Loss at the end	0.1785
+accuracy at the end 0.9401
+loss on validation set at the end: 0.3472
+accuracy on validation set at the end: 0.8969
+
+Max. Validation Accuracy 0.8968655467033386
+
+<model_3>
+Number of Epochs: 700 
+Loss at the end	0.3655
+accuracy at the end 0.8777
+loss on validation set at the end: 0.4474
+accuracy on validation set at the end: 0.8625
+
+Max. Validation Accuracy 0.8624873757362366
+
+<model_4>
+Number of Epochs: 600
+Loss at the end	0.1302
+accuracy at the end 0.9658
+loss on validation set at the end: 0.5945
+accuracy on validation set at the end: 0.9095
+
+Max. Validation Accuracy 0.9317492246627808
+
+The test Loss is : 0.5687476992607117
+The Best test Accuracy is : 92.44357347488403
+
+LOSS PLOTS
+images
+
+
+
+
+V. Results and Analysis
+
+The table shows that among all the classifiers the XGBoost, SVM and the ANNs perform the best.The PCA  is used to visualize possible group of genres. The SVM perfroms exceptionlly well for the classification. <so called simple CNN model> For the <> model, we had used the Adam optimizer for training the model. The epoch that was chosen for the training model is 600. All of the hidden layers are using the RELU activation function and the output layer uses the softmax function. The loss is calculated using the sparse_categorical_crossentropy function. Dropout is used to prevent overfitting. We chose the Adam optimizer because it gave us the best results after evaluating other optimizers. The model accuracy can be increased by further increasing the epochs but after a certain period, we may achieve a threshold, so the value should be determined accordingly.
+
+The model accuracy can be increased by further increasing the epochs but after a certain period, we may achieve a threshold, so the value should be determined accordingly. The accuracy we achieved for the test set is <> percent which is very decent. So we come to the conclusion that Neural Networks are very effective in machine learning models.
+
+Contributions
+The learning and planning was done as a team.The individual contributions are as given
+* Kartik Choudhary[B20CS025]: ANNs, SVM, Report, preprocessing and analysis
+* Vinayak Verma [B20EE079]: GaussianNB,XGboost, Random Forest, Decision Tree, Multinomial Logistic Regression on GTZAN.
+
+Refrences:
+https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification
+https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html
+https://scikit-learn.org/stable/modules/sgd.html
+https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+https://ieeexplore.ieee.org/document/9362364
+
+
+
+
+
+
+	
+
